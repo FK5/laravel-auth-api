@@ -18,6 +18,7 @@ Route::post('register', [\App\Http\Controllers\AuthController::class, 'register'
 Route::post('login', [\App\Http\Controllers\AuthController::class, 'login']);
 
 
+
 // Route::middleware('auth:sanctum')->group(function () {
 //     Route::get('user', [\App\Http\Controllers\AuthController::class, 'user']);
 //     Route::post('logout', [\App\Http\Controllers\AuthController::class, 'logout']);
@@ -33,7 +34,7 @@ Route::group(['middleware' => 'auth:sanctum'], function()
         Route::get('users20', [\App\Http\Controllers\AuthController::class, 'users20']);
         Route::get('users40', [\App\Http\Controllers\AuthController::class, 'users40']);
         Route::get('users60', [\App\Http\Controllers\AuthController::class, 'users60']);
-        // Route::post('logout', [\App\Http\Controllers\AuthController::class, 'logout']);
+        Route::get('nbOfRegisteredUsers', [\App\Http\Controllers\AuthController::class, 'nbOfRegisteredUsers']);
 
     });
 });

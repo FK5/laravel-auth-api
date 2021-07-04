@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
+use Carbon\Carbon;
+
 class AuthController extends Controller
 {
     public function register(Request $request)
@@ -60,6 +62,24 @@ class AuthController extends Controller
     public function users60()
     {
         return User::paginate(60);
+    }
+
+    public function nbOfRegisteredUsers(Request $request)
+    {
+        $i=1;
+        $usersRegisterdToday=0;
+        $today = Carbon::today();
+        $sum = 0;
+        $nbDays = $request->days;
+        for ($i; $i <= $nbDays; $i++) {
+            $usersRegisterdToday = User::whereDate('created_at','=',$today)->count();
+            $sum = $sum + $usersRegisterdToday;
+            $today= $today->subDays(1);
+        }
+        $average = $sum/$i;
+        return response([
+            'message' => $average
+        ]);
     }
 
     public function logout()
